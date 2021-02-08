@@ -106,3 +106,5 @@ dist
 # Custom
 *.swp
 .expo
+.history
+.DS_Store
