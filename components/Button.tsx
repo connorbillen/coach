@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Pressable } from 'react-native'
 import * as React from 'react'
 import { useState } from 'react';
 
-const Button = (props: { onClick?: () => void, text: string }): JSX.Element => {
+const Button = (props: { text: string, onClick?: () => void, style?: {} }): JSX.Element => {
     const [pressed, setPressed] = useState(false);
     
     const styleOnPressIn: () => void = (): void => { 
@@ -16,6 +16,7 @@ const Button = (props: { onClick?: () => void, text: string }): JSX.Element => {
     
     const style = {
         ...styles.button,
+        ...props.style,
       backgroundColor: !pressed ? '#fff' : '#ccc',
     }
 

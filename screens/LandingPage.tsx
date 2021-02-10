@@ -4,19 +4,21 @@ import { StyleSheet } from 'react-native'
 
 import { Text, View } from '../components/Themed'
 import Button from '../components/Button'
+import LoginForm from '../components/LoginForm'
 
 export default function LandingPage() {
-  const [buttonTitle, setButtonTitle] = useState('Get Started')
-  
+  const [enableLogin, setEnableLogin] = useState(false)
+
   const getStartedHandler: () => void = (): void => {
-    setButtonTitle(`${ buttonTitle } more`)
+    setEnableLogin(true)
   }
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>coach</Text>
       <View style={styles.separator} />
-      <Button text={ buttonTitle } onClick={ getStartedHandler }/>
+      { !enableLogin && <Button text='Get Started' onClick={ getStartedHandler }/> }
+      { enableLogin && <LoginForm /> }
     </View>
   );
 }
