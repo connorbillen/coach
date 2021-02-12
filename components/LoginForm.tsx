@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import Button from './Button'
 
-const LoginForm = (): JSX.Element => {
+const LoginForm = (props: { onSuccess?: () => void}): JSX.Element => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
@@ -22,10 +22,12 @@ const LoginForm = (): JSX.Element => {
             <View style={ styles.buttonContainer }>
                 <Button
                     style={ styles.button }
-                    text="Sign Up" />
+                    text="Sign Up"
+                    onClick={ props.onSuccess } />
                 <Button
                     style={ styles.button }
-                    text="Login" />
+                    text="Login"
+                    onClick={ props.onSuccess } />
             </View>
         </View>
     )

@@ -6,11 +6,15 @@ import { Text, View } from '../components/Themed'
 import Button from '../components/Button'
 import LoginForm from '../components/LoginForm'
 
-export default function LandingPage() {
+const LandingPage = (props: { navigation: { navigate: (page: string) => void } }): JSX.Element => {
   const [enableLogin, setEnableLogin] = useState(false)
 
   const getStartedHandler: () => void = (): void => {
     setEnableLogin(true)
+  }
+
+  const loginSuccessCallback: () => void = (): void => {
+    props.navigation.navigate('Main')
   }
 
   return (
@@ -18,7 +22,7 @@ export default function LandingPage() {
       <Text style={styles.title}>coach</Text>
       <View style={styles.separator} />
       { !enableLogin && <Button text='Get Started' onClick={ getStartedHandler }/> }
-      { enableLogin && <LoginForm /> }
+      { enableLogin && <LoginForm onSuccess={ loginSuccessCallback }/> }
     </View>
   );
 }
@@ -43,3 +47,5 @@ const styles = StyleSheet.create({
     color: '#fff',
   }
 })
+
+export default LandingPage
