@@ -2,11 +2,20 @@ import { StyleSheet, View, Text } from 'react-native'
 
 import * as React from 'react'
 
-const ProgressBar = (props: { progress: number }): JSX.Element => {
+const ProgressBar = (props: { progress: number, add?: number }): JSX.Element => {
 
     return (
-        <View style={ styles.progressContainer }>
-            <View style={{ ...styles.progress, width: styles.progressContainer.width * (props.progress / 100) }}></View>
+        <View style={ !props.add ? 
+            styles.progressContainer :
+            {
+                ...styles.progressContainer,
+                width: props.progress + props.add,
+                backgroundColor: 'rgba(255, 199, 184, 0.5)',
+            }}>
+            <View style={ !props.add ? 
+                { ...styles.progress, width: styles.progressContainer.width * (props.progress / 100) } :
+                { ...styles.progress, width: props.progress }
+            }></View>
         </View>
     )
 }
@@ -15,7 +24,7 @@ const styles = StyleSheet.create({
     progressContainer: {
         height: 25,
         width: 250,
-        backgroundColor: '#fff',
+        backgroundColor: 'rgba(255, 255, 255, 1.0)',
         borderRadius: 5,
     },
     progress: {

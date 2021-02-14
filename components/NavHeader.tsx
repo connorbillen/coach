@@ -20,8 +20,8 @@ const NavHeader = (props: { style?: {} }): JSX.Element => {
 
     return (
         <View style={ style }>
-            { menuOptions.map((menuOption: string) => 
-                <Text style={{ ...styles.headerText, textDecorationLine: menuOption === state.selected ? 'underline' : 'none' }}>{ menuOption }</Text>
+            { menuOptions.map((menuOption: string, index: number) => 
+                <Text key={ index } style={{ ...styles.headerText, textDecorationLine: menuOption === state.selected ? 'underline' : 'none' }}>{ menuOption }</Text>
             )}
         </View>
     )
