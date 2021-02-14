@@ -1,9 +1,9 @@
 import { FontAwesome } from '@expo/vector-icons';
-import { CardStyleInterpolators } from '@react-navigation/stack';
 import * as React from 'react'
 import { StyleSheet, View, Text, Pressable } from 'react-native'
 
 import ProgressBar from '../../components/ProgressBar'
+import TreasureChest from '../../components/TreasureChest'
 
 interface MealItem {
   title: string
@@ -84,9 +84,9 @@ const MealsPage = (): JSX.Element => {
       </View>
 
       <View style={ styles.mealsContainer }>
-        { meals.map((meal: Meal): JSX.Element => {
+        { meals.map((meal: Meal, index: number): JSX.Element => {
           return (
-            <View style={ styles.meal }>
+            <View key={ index } style={ styles.meal }>
               <View style={ styles.mealHeader }>
                 <FontAwesome name='edit' style={ styles.mealHeaderEdit }/>
                 <Text style={ styles.mealTitle }>{ meal.title }</Text>
@@ -96,9 +96,9 @@ const MealsPage = (): JSX.Element => {
               </View>
               { meal.open && meal.mealItems &&
                 <View style={ styles.mealInfo }>
-                  { meal.mealItems.map((mealItem: MealItem): JSX.Element => {
+                  { meal.mealItems.map((mealItem: MealItem, index: number): JSX.Element => {
                     return (
-                        <View style={ styles.mealItem }>
+                        <View key={ index } style={ styles.mealItem }>
                           <View style={ styles.mealItemQuantityUnit }>
                             <Text style={ styles.mealItemQuantity }>
                               { mealItem.quantity }
