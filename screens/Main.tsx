@@ -3,19 +3,19 @@ import { StyleSheet } from 'react-native'
 
 import NavHeader from '../components/NavHeader'
 import { View } from '../components/Themed'
-import TreasureChest from '../components/TreasureChest'
 
 import MealsPage from './subpages/Meals'
 import TrainingPage from './subpages/Training'
 import CoachPage from './subpages/Coach'
 
 import EditMealOverlay from './overlays/EditMeal'
+import Popover from '../components/Popover'
 
 const Main = (): JSX.Element => {
 
   const state = {
     active: 'meals',
-    treasureChestOpen: true,
+    popover: true,
   }
 
   return (
@@ -26,7 +26,7 @@ const Main = (): JSX.Element => {
         { state.active === 'training' && <TrainingPage /> }
         { state.active === 'coach' && <CoachPage /> }
       </View>
-      { state.treasureChestOpen && <TreasureChest content={ EditMealOverlay } />}
+      { state.popover && <Popover item={ EditMealOverlay } /> }
     </View>
   )
 }
