@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Pressable } from 'react-native'
 import * as React from 'react'
 import { useState } from 'react';
 
-const Button = (props: { text: string, onClick?: () => void, style?: {} }): JSX.Element => {
+const Button = (props: { text: string, color?: string, onClick?: () => void, style?: {} }): JSX.Element => {
     const [pressed, setPressed] = useState(false);
     
     const styleOnPressIn: () => void = (): void => { 
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
       borderRadius: 20,
       fontSize: 18,
       fontFamily: 'futura',
-    }
+    },
   })
   
 

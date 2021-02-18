@@ -1,21 +1,28 @@
 import * as React from 'react'
-import { StyleSheet } from 'react-native'
+import { useState } from 'react'
+import { StyleSheet, Text } from 'react-native'
 
 import NavHeader from '../components/NavHeader'
 import { View } from '../components/Themed'
+import EditMealOverlay from './overlays/EditMeal'
+import Popover from '../components/Popover'
 
 import MealsPage from './subpages/Meals'
 import TrainingPage from './subpages/Training'
 import CoachPage from './subpages/Coach'
 
-import EditMealOverlay from './overlays/EditMeal'
-import Popover from '../components/Popover'
 
 const Main = (): JSX.Element => {
-
-  const state = {
+  const [state, setState] = useState({
     active: 'meals',
     popover: true,
+  })
+
+  const tapOutCallback = (): void => {
+    setState({
+      active: state.active,
+      popover: !state.popover,
+    })
   }
 
   return (
@@ -26,7 +33,7 @@ const Main = (): JSX.Element => {
         { state.active === 'training' && <TrainingPage /> }
         { state.active === 'coach' && <CoachPage /> }
       </View>
-      { state.popover && <Popover item={ EditMealOverlay } /> }
+      { state.popover && <Popover item={ EditMealOverlay } tapOutCallback={ tapOutCallback } /> }
     </View>
   )
 }

@@ -3,7 +3,6 @@ import * as React from 'react'
 import { StyleSheet, View, Text, Pressable } from 'react-native'
 
 import ProgressBar from '../../components/ProgressBar'
-import Popover from '../../components/Popover'
 
 interface MealItem {
   title: string

@@ -1,22 +1,31 @@
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text, SafeAreaView, ScrollView } from 'react-native'
 
 import * as React from 'react'
 import Button from '../../components/Button'
-import { CardStyleInterpolators } from '@react-navigation/stack'
+import ProgressBar from '../../components/ProgressBar'
 
 const EditMealOverlay = (): JSX.Element => {
 
     return (
         <View style={ styles.container }>
-            <View style={ styles.contentContainer }>
-                { '....................'.split('.').map( () => {
-                return (
-                    <Text style={ styles.text }>TEST TEST TEST</Text>
-                )
-                })}
-            </View>
+            <SafeAreaView style={ styles.contentContainer }>
+                <ScrollView>
+                    <View style={ styles.macroContainer }>
+                        <Text style={ styles.macroLabel }>protein</Text>
+                        <ProgressBar progress={ 60 } />
+                    </View>
+                    <View style={ styles.macroContainer }>
+                        <Text style={ styles.macroLabel }>carbs</Text>
+                        <ProgressBar progress={ 60 } />
+                    </View>
+                    <View style={ styles.macroContainer }>
+                        <Text style={ styles.macroLabel }>fats</Text>
+                        <ProgressBar progress={ 60 } />
+                    </View>
+                </ScrollView>
+            </SafeAreaView>
             <View style={ styles.submitBanner }>
-                <Button text="Submit" style={ styles.submitButton } />
+                <Button text='Submit' style={ styles.submitButton } color='#adb7ff' />
             </View>
         </View>
     )
@@ -31,18 +40,33 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     submitBanner: {
-        borderWidth: 1,
-        borderColor: '#000',
-        borderStyle: 'solid',
-        position: 'absolute',
-        bottom: 0,
+        alignSelf: 'flex-end',
+        justifyContent: 'center',
+        height: 30,
     },
     contentContainer: {
-        borderWidth: 1,
-        borderColor: '#000',
-        borderStyle: 'solid',
+        flex: 1,
+        flexGrow: 1,
     },
     submitButton: {
+        fontSize: 16,
+        marginTop: 0,
+        marginBottom: 0,
+        marginLeft: 0,
+        marginRight: 0,
+    },
+    macroContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 5,
+    },
+    macroLabel: {
+        fontSize: 16,
+        fontFamily: 'futura',
+        color: '#000',
+        marginTop: 0,
+        marginBottom: 0,
+        minWidth: 60,
     },
 })
 
