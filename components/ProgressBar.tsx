@@ -24,7 +24,7 @@ const ProgressBar = (props: { progress: number, add?: number }): JSX.Element => 
 const styles = StyleSheet.create({
     progressContainer: {
         height: 25,
-        width: '100%',
+        flexGrow: 1,
         backgroundColor: 'rgba(255, 255, 255, 1.0)',
         borderRadius: 5,
         borderColor: 'rgba(0, 0, 0, 0.3)',
