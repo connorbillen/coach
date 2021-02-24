@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { useState } from 'react'
-import { StyleSheet, Text } from 'react-native'
+import { StyleSheet } from 'react-native'
+import { Provider } from 'react-redux'
 
 import NavHeader from '../components/NavHeader'
 import { View } from '../components/Themed'
@@ -11,6 +12,7 @@ import MealsPage from './subpages/Meals'
 import TrainingPage from './subpages/Training'
 import CoachPage from './subpages/Coach'
 
+import store from '../state'
 
 const Main = (): JSX.Element => {
   const [state, setState] = useState({
@@ -26,15 +28,17 @@ const Main = (): JSX.Element => {
   }
 
   return (
-    <View style={{ height: '100%' }}>
-      <View style={ styles.container }>
-        <NavHeader />
-        { state.active === 'meals' && <MealsPage /> }
-        { state.active === 'training' && <TrainingPage /> }
-        { state.active === 'coach' && <CoachPage /> }
+    <Provider store={ store }>
+      <View style={{ height: '100%' }}>
+        <View style={ styles.container }>
+          <NavHeader />
+          { state.active === 'meals' && <MealsPage /> }
+          { state.active === 'training' && <TrainingPage /> }
+          { state.active === 'coach' && <CoachPage /> }
+        </View>
+        { state.popover && <Popover item={ EditMealOverlay } tapOutCallback={ tapOutCallback } /> }
       </View>
-      { state.popover && <Popover item={ EditMealOverlay } tapOutCallback={ tapOutCallback } /> }
-    </View>
+    </Provider>
   )
 }
 

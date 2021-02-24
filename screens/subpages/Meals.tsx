@@ -1,67 +1,21 @@
 import { FontAwesome } from '@expo/vector-icons';
 import * as React from 'react'
+import { Dispatch } from 'react';
 import { StyleSheet, View, Text, Pressable } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux';
 
+import { MealItem, Menu, State } from '../../interfaces'
+import { actions } from '../../state'
 import ProgressBar from '../../components/ProgressBar'
 
-interface MealItem {
-  title: string
-  quantity: number
-  unit: string
-}
-
-interface Meal {
-  title: string
-  open: boolean
-  mealItems?: MealItem[]
-}
-
 const MealsPage = (): JSX.Element => {
+  const meals: { [k: string]: Menu } = useSelector((state: State) => state.menus)
+  const dispatch: Dispatch<any> = useDispatch()
 
-  const meals: Meal[] = [
-    {
-      title: 'meal 1',
-      open: true,
-      mealItems: [
-        {
-          title: 'Chicken Breast',
-          quantity: 6,
-          unit: 'oz',
-        },
-        {
-          title: 'White Rice',
-          quantity: 100,
-          unit: 'g',
-        },
-        {
-          title: 'Avocado Oil',
-          quantity: 1,
-          unit: 'tbsp',
-        },
-      ]
-    },
-    {
-      title: 'meal 2',
-      open: false,
-    },
-    {
-      title: 'meal 3',
-      open: false,
-    },
-    {
-      title: 'meal 4',
-      open: false,
-    },
-    {
-      title: 'meal 5',
-      open: false,
-    },
-    {
-      title: 'meal 6',
-      open: false,
-    },
-  ]
-
+  const toggleMenu = (title: string): void => {
+    dispatch({ type: actions.TOGGLE_MENU, data: { title } })
+  }
+  
   return (
     <View style={ styles.container }>
       <View style={ styles.dateMacrosContainer }>
@@ -83,27 +37,29 @@ const MealsPage = (): JSX.Element => {
       </View>
 
       <View style={ styles.mealsContainer }>
-        { meals.map((meal: Meal, index: number): JSX.Element => {
+        { Object.keys(meals).map((mealTitle: string, index: number): JSX.Element => {
+          const meal = meals[mealTitle]
+
           return (
             <View key={ index } style={ styles.meal }>
               <View style={ styles.mealHeader }>
                 <FontAwesome name='edit' style={ styles.mealHeaderEdit }/>
-                <Text style={ styles.mealTitle }>{ meal.title }</Text>
-                <Pressable onPress={ (): void => { meal.open = !meal.open} }>
+                <Text style={ styles.mealTitle }>{ mealTitle }</Text>
+                <Pressable onPress={ (): void => { toggleMenu(mealTitle) } }>
                   <FontAwesome name={ meal.open ? 'chevron-down' : 'chevron-right' } style={ styles.mealHeaderChevron }/>
                 </Pressable>
               </View>
-              { meal.open && meal.mealItems &&
+              { meal.open && meal.meal && meal.meal.items &&
                 <View style={ styles.mealInfo }>
-                  { meal.mealItems.map((mealItem: MealItem, index: number): JSX.Element => {
+                  { meal.meal.items.map((mealItem: MealItem, index: number): JSX.Element => {
                     return (
                         <View key={ index } style={ styles.mealItem }>
                           <View style={ styles.mealItemQuantityUnit }>
                             <Text style={ styles.mealItemQuantity }>
-                              { mealItem.quantity }
+                              { mealItem.quantity * mealItem.servingSize }
                             </Text>
                             <Text style={ styles.mealItemUnit }>
-                              { mealItem.unit }
+                              { mealItem.servingUnit }
                             </Text>
                           </View>
                           <Text style={ styles.mealItemTitle }>
@@ -148,6 +104,7 @@ const styles = StyleSheet.create({
     marginLeft: 17,
     marginTop: 20,
     marginBottom: 13,
+    marginRight: 17,
   },
   macroLabel: {
     fontSize: 30,
