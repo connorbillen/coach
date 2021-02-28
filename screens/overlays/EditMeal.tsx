@@ -13,48 +13,48 @@ import ProgressBar from '../../components/ProgressBar'
 
 const EditMealOverlay = (): JSX.Element => {
     return (
-        <View style={ styles.container }>
-            <View style={ styles.contentContainer }>
+        <View style={styles.container}>
+            <View style={styles.contentContainer}>
                 <View>
-                    <View style={ styles.macroContainer }>
-                        <Text style={ styles.macroLabel }>protein</Text>
-                        <ProgressBar progress={ 60 } />
+                    <View style={styles.macroContainer}>
+                        <Text style={styles.macroLabel}>protein</Text>
+                        <ProgressBar progress={60} />
                     </View>
-                    <View style={ styles.macroContainer }>
-                        <Text style={ styles.macroLabel }>carbs</Text>
-                        <ProgressBar progress={ 60 } />
+                    <View style={styles.macroContainer}>
+                        <Text style={styles.macroLabel}>carbs</Text>
+                        <ProgressBar progress={60} />
                     </View>
-                    <View style={ styles.macroContainer }>
-                        <Text style={ styles.macroLabel }>fats</Text>
-                        <ProgressBar progress={ 60 } />
+                    <View style={styles.macroContainer}>
+                        <Text style={styles.macroLabel}>fats</Text>
+                        <ProgressBar progress={60} />
                     </View>
                 </View>
 
-                <ScrollView style={ styles.mealInputContainer }>
-                    { '...'.split('.').map((_, index: number): JSX.Element => {
+                <ScrollView style={styles.mealInputContainer}>
+                    {'...'.split('.').map((_, index: number): JSX.Element => {
                         return (
-                            <View key={ index } style={ styles.ingredientInputContainer }> 
-                                <TextInput 
-                                    style={ styles.mealQuantityInput}
-                                    onChangeText={ (): void => {} }
-                                    value={ "2" }
+                            <View key={index} style={styles.ingredientInputContainer}>
+                                <TextInput
+                                    style={styles.mealQuantityInput}
+                                    onChangeText={(): void => { }}
+                                    value={"2"}
                                 />
                                 <Text> x </Text>
                                 <TextInput
-                                    editable= { false }
-                                    style={ styles.mealInput}
-                                    onChangeText={ (): void => {} }
-                                    value={ "3oz Chicken Breast" }
+                                    editable={false}
+                                    style={styles.mealInput}
+                                    onChangeText={(): void => { }}
+                                    value={"3oz Chicken Breast"}
                                 />
-                                <FontAwesome name={ 'search' } style={ styles.searchIcon } />
+                                <FontAwesome name={'search'} style={styles.searchIcon} />
                             </View>
                         )
                     })}
                 </ScrollView>
             </View>
 
-            <View style={ styles.submitBanner }>
-                <Button text='Submit' style={ styles.submitButton } color='#adb7ff' />
+            <View style={styles.submitBanner}>
+                <Button text='Submit' style={styles.submitButton} color='#adb7ff' />
             </View>
         </View>
     )
@@ -62,7 +62,8 @@ const EditMealOverlay = (): JSX.Element => {
 
 const styles = StyleSheet.create({
     container: {
-        height: '100%',
+        height: 400,
+        padding: 5,
     },
     text: {
         fontFamily: 'futura',

@@ -2,12 +2,14 @@ import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/
 import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
 import { ColorSchemeName } from 'react-native'
+import { Provider } from 'react-redux'
 
 import NotFoundScreen from '../screens/NotFoundScreen'
 import LandingPage from '../screens/LandingPage'
 import Main from '../screens/Main'
 import { RootStackParamList } from '../types'
 import LinkingConfiguration from './LinkingConfiguration'
+import store from '../state'
 
 // If you are not familiar with React Navigation, we recommend going through the
 // "Fundamentals" guide: https://reactnavigation.org/docs/getting-started
@@ -29,10 +31,12 @@ const Screen = Stack.Screen;
 
 function RootNavigator() {
   return (
-    <Navigator screenOptions={{ headerShown: false }}>
-      <Screen name="LandingPage" component={ LandingPage } />
-      <Screen name="Main" component={ Main } />
-      <Screen name="NotFound" component={ NotFoundScreen } options={{ title: 'Oops!' }} />
-    </Navigator>
+    <Provider store={ store }>
+      <Navigator screenOptions={{ headerShown: false }}>
+        <Screen name="LandingPage" component={ LandingPage } />
+        <Screen name="Main" component={ Main } />
+        <Screen name="NotFound" component={ NotFoundScreen } options={{ title: 'Oops!' }} />
+      </Navigator>
+    </Provider>
   )
 }

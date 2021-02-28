@@ -1,19 +1,30 @@
 import { FontAwesome } from '@expo/vector-icons';
 import * as React from 'react'
-import { Dispatch } from 'react';
+import { Dispatch, useState } from 'react';
 import { StyleSheet, View, Text, Pressable } from 'react-native'
+import Popover from 'react-native-popover-view';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { MealItem, Menu, State } from '../../interfaces'
 import { actions } from '../../state'
+import EditMealOverlay from '../../screens/overlays/EditMeal'
 import ProgressBar from '../../components/ProgressBar'
 
 const MealsPage = (): JSX.Element => {
   const meals: { [k: string]: Menu } = useSelector((state: State) => state.menus)
   const dispatch: Dispatch<any> = useDispatch()
+  const [editMealModalOpen, setEditMealModalOpen] = useState(false)
 
   const toggleMenu = (title: string): void => {
     dispatch({ type: actions.TOGGLE_MENU, data: { title } })
+  }
+
+  const closeMealModal = (): void => {
+    setEditMealModalOpen(false)
+  }
+
+  const openMealModal = (): void => {
+    setEditMealModalOpen(true)
   }
   
   return (
@@ -43,7 +54,9 @@ const MealsPage = (): JSX.Element => {
           return (
             <View key={ index } style={ styles.meal }>
               <View style={ styles.mealHeader }>
-                <FontAwesome name='edit' style={ styles.mealHeaderEdit }/>
+                <Pressable onPress={ (): void => { openMealModal() } }>
+                  <FontAwesome name='edit' style={ styles.mealHeaderEdit }/>
+                </Pressable>
                 <Text style={ styles.mealTitle }>{ mealTitle }</Text>
                 <Pressable onPress={ (): void => { toggleMenu(mealTitle) } }>
                   <FontAwesome name={ meal.open ? 'chevron-down' : 'chevron-right' } style={ styles.mealHeaderChevron }/>
@@ -88,6 +101,10 @@ const MealsPage = (): JSX.Element => {
           )
         }) }
       </View>
+
+      <Popover isVisible={ editMealModalOpen } onRequestClose={ closeMealModal } popoverStyle={ styles.editMealPopover }>
+        <EditMealOverlay />
+      </Popover>
     </View>
   );
 }
@@ -187,6 +204,10 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     minWidth: 80,
   },
+  editMealPopover: {
+    borderRadius: 15,
+    width: '70%',
+  }
 })
 
 export default MealsPage

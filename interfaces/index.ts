@@ -17,6 +17,11 @@ export interface Menu {
   meal: Meal,
 }
 
+export interface App {
+  active: string,
+}
+
 export interface State {
+  app: App,
   menus: { [k: string]: Menu },
 }
